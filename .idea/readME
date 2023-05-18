@@ -1,0 +1,54 @@
+create table place(
+    id int primary key not null,
+    name varchar not null
+                  );
+
+create table transport(
+    id int primary key not null,
+    id_place int not null
+                      references place(id),
+    name varchar not null
+);
+
+create table attribute(
+    id int primary key not null,
+    id_transport int not null
+                  references transport(id),
+    name varchar not null,
+    amount int,
+    state varchar
+);
+
+create table animal(
+    id int primary key not null,
+    id_transport int
+                   references transport(id),
+    name varchar not null,
+    action varchar,
+    state varchar not null
+);
+
+create table people(
+    id int primary key not null,
+    id_place int not null
+                   references place(id),
+    id_transport int
+                   references transport(id),
+    name varchar not null,
+    action varchar,
+    state varchar not null
+);
+
+
+drop table place, transport, people, animal, attribute;
+
+
+insert into place(id,name) values (0,'field');
+insert into transport(id,id_place,name) values (1,0,'car');
+insert into transport(id,id_place,name) values (2,0,'elevator');
+insert into attribute(id, id_transport,name,amount,state) values (3,1,'doors',5,'closed');
+insert into attribute(id, id_transport,name,amount,state) values (4,2,'walls',4,'open');
+insert into attribute(id, id_transport,name,amount,state) values (5,2,'cell',1,null);
+insert into attribute(id, id_transport,name,amount,state) values (6,2,'rope',1,null);
+insert into animal(id, id_transport, name, action, state) values (7,2,'goat','bleating','alive');
+insert into people(id, id_place, id_transport, name, action, state) values (8,0,1,'passengers','seeing','alive');
